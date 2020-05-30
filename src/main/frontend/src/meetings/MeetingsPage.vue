@@ -36,8 +36,12 @@
                     .then(response => {this.meetings = response.body});
             },
             addNewMeeting(meeting) {
-                //this.meetings.push(meeting);
                 this.$http.post('meetings', meeting).then(response => this.meetings.push(response.body));
+                this.getMeetings();
+            },
+            deleteMeeting(meeting) {
+                //this.meetings.splice(this.meetings.indexOf(meeting), 1);
+                this.$http.delete('meetings/' + meeting.id.toString()).then(response => this.meetings.splice(this.meetings.indexOf(meeting), 1));
                 this.getMeetings();
             },
             addMeetingParticipant(meeting) {
@@ -46,9 +50,7 @@
             removeMeetingParticipant(meeting) {
                 meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
             },
-            deleteMeeting(meeting) {
-                this.meetings.splice(this.meetings.indexOf(meeting), 1);
-            },
+
 
 
         },
