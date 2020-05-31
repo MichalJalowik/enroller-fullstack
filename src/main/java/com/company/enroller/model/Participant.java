@@ -50,4 +50,8 @@ public class Participant {
         meetings.add(meeting);
     }
 
+    public void removeMeetings(Meeting meeting) {
+        meetings.remove(meeting);
+    }
+
 }
