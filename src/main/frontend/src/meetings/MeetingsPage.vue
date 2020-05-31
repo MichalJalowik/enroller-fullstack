@@ -46,9 +46,9 @@
             },
             addMeetingParticipant(meeting) {
                 meeting.participants.push(this.username);
-                this.getMeetings()
                 this.$http.post('meetings/' + meeting.id + '/participants', {login:this.username});
-                this.getMeetings()
+                this.getMeetings();
+                this.getMeetings();
             },
             removeMeetingParticipant(meeting) {
                 meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
@@ -62,7 +62,6 @@
         },
         mounted() {
             this.getMeetings()
-            //this.$nextTick(this.getMeetings());
         }
     }
 </script>
