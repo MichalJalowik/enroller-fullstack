@@ -19,10 +19,12 @@ public class Participant {
     private String password;
 
     @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "meeting_participant", joinColumns = {
-            @JoinColumn(name = "participant_login")}, inverseJoinColumns = {@JoinColumn(name = "meeting_id")})
-    Set<Meeting> meetings = new HashSet<>();
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "meeting_participant",
+            joinColumns = @JoinColumn(name = "participant_login"),
+            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    Set<Meeting> meetings = new HashSet<Meeting>();
 
     public String getLogin() {
         return login;
@@ -39,4 +41,13 @@ public class Participant {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Set<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(Meeting meeting) {
+        meetings.add(meeting);
+    }
+
 }

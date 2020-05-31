@@ -46,9 +46,14 @@
             },
             addMeetingParticipant(meeting) {
                 meeting.participants.push(this.username);
+                this.$http.post('meetings/' + meeting.id + '/participants', {login: this.username});
+                this.getMeetings()
             },
             removeMeetingParticipant(meeting) {
-                meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
+                //meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
+                this.$http.delete('meetings/' + meeting.id.toString() + '/participants/' + this.username)
+                    .then(response => meeting.participants.splice(meeting.participants.indexOf(this.username), 1));
+                this.getMeetings()
             },
 
 

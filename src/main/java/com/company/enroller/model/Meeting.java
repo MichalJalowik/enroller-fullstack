@@ -25,7 +25,7 @@ public class Meeting {
     private String date;
 
     //@JsonIgnore
-    @ManyToMany(mappedBy = "meetings")
+    @ManyToMany(mappedBy = "meetings", cascade={CascadeType.PERSIST, CascadeType.MERGE})
     Set<Participant> participants = new HashSet<>();
 
     public long getId() {

@@ -91,10 +91,15 @@ public class MeetingRestController {
         }
 
         Participant participantToAdd = participantService.findByLogin(login);
+
         currentMeeting.addParticipant(participantToAdd);
+        participantToAdd.setMeetings(currentMeeting);
         meetingService.update(currentMeeting);
 
-        return new ResponseEntity<Collection<Participant>>(currentMeeting.getParticipants(), HttpStatus.OK);
+
+        //participantService.update(participantToAdd);
+        //return new ResponseEntity<Collection<Participant>>(currentMeeting.getParticipants(), HttpStatus.OK);
+        return new ResponseEntity<Participant>(participantToAdd, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}/participants/{login}", method = RequestMethod.DELETE)
@@ -102,6 +107,7 @@ public class MeetingRestController {
         Meeting meeting = meetingService.findById(id);
         Participant participant = participantService.findByLogin(login);
         meeting.removeParticipant(participant);
+        //usunac w drugiej tablicy
         meetingService.update(meeting);
         return new ResponseEntity<Collection<Participant>>(meeting.getParticipants(), HttpStatus.OK);
     }
