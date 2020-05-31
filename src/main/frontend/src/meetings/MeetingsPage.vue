@@ -56,9 +56,6 @@
                     .then(response => meeting.participants.splice(meeting.participants.indexOf(this.username), 1));
                 this.getMeetings()
             },
-
-
-
         },
         mounted() {
             this.getMeetings()
